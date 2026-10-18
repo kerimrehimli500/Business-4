@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Novyra - Premium Dark Feminine Journal</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'az',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <style>
+        :root {
+            --bg-deep: #08070b;
+            --bg-surface: #121017;
+            --bg-card: #18151f;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa8c2c;
+            --text-main: #f0ecf6;
+            --text-muted: #9e95b0;
+            --border-gold: rgba(212, 175, 55, 0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .cursive-font {
+            font-family: 'Sacramento', cursive;
+        }
+
+        /* WELCOME SCREEN / COVER PAGE */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1c1724 0%, var(--bg-deep) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            text-align: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #welcome-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .welcome-card-preview {
+            width: 220px;
+            height: 300px;
+            background: #2a1b24;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lace-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4) 10px, transparent 10px, transparent 20px);
+            border-right: 2px solid var(--gold-light);
+        }
+
+        .welcome-logo {
+            font-size: 3rem;
+            color: var(--gold);
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            z-index: 2;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: #000;
+            font-weight: 600;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* MAIN APP CONTAINER */
+        #app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            border-left: 1px solid var(--border-gold);
+            border-right: 1px solid var(--border-gold);
+            background: var(--bg-surface);
+        }
+
+        /* HEADER & TRANSLATE TOOLBAR */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-gold);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .icon-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* TRANSLATE WIDGET STYLING */
+        #google_translate_element {
+            display: inline-block;
+        }
+
+        .goog-te-gadget-simple {
+            background-color: var(--bg-surface) !important;
+            border: 1px solid var(--border-gold) !important;
+            padding: 4px 8px !important;
+            border-radius: 15px !important;
+            font-size: 0.8rem !important;
+        }
+
+        .goog-te-gadget-simple span {
+            color: var(--text-main) !important;
+        }
+
+        /* TOOLBAR */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(24, 21, 31, 0.8);
+            border-bottom: 1px solid var(--border-gold);
+            font-size: 0.85rem;
+        }
+
+        .tool-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-gold);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        /* WORKSPACE & CANVAS */
+        .workspace {
+            flex: 1;
+            position: relative;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-content {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .page-content.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #draw-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        #draw-canvas.active {
+            pointer-events: auto;
+            cursor: crosshair;
+        }
+
+        /* CARD STYLES */
+        .journal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .journal-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .journal-subtitle {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* POLAROID PERSONAL COVER PAGE STYLES */
+        .polaroid-box {
+            background: #fff;
+            padding: 15px 15px 25px 15px;
+            border-radius: 4px;
+            width: 220px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .polaroid-img-holder {
+            width: 100%;
+            height: 200px;
+            background: #eee;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .polaroid-img-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name-input {
+            background: transparent !important;
+            border: none !important;
+            border-bottom: 2px dashed var(--gold) !important;
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--gold-light) !important;
+            font-family: 'Sacramento', cursive;
+            margin-top: 15px;
+            width: 80%;
+        }
+
+        /* BULLET JOURNAL LIST (30 ITEMS) */
+        .bullet-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        @media(max-width: 600px) {
+            .bullet-grid { grid-template-columns: 1fr; }
+        }
+
+        .bullet-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-gold);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ARTICLE / STORY PAGE STYLING */
+        .magazine-article {
+            background: #fdfbf7;
+            color: #1a1a1a;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .magazine-article h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .magazine-article .sub {
+            text-align: center;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .article-body {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            column-count: 1;
+            text-align: justify;
+        }
+
+        /* INPUTS & TEXTAREAS */
+        textarea, input[type="text"] {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-gold);
+            border-radius: 6px;
+            color: var(--text-main);
+            padding: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            border-color: var(--gold);
+        }
+
+        textarea { min-height: 90px; resize: vertical; }
+
+        /* FOOTER */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-gold);
+        }
+
+        .page-indicator {
+            font-size: 0.95rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-gold);
+            color: var(--text-main);
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* MODAL TOC */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(8,7,11,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .toc-item {
+            padding: 10px;
+            border-bottom: 1px solid var(--border-gold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* PEN TOOLBAR */
+        #pen-toolbar {
+            position: fixed;
+            bottom: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: none;
+            gap: 12px;
+            align-items: center;
+            z-index: 100;
+        }
+
+        #pen-toolbar.active { display: flex; }
+
+        .color-dot {
+            width: 22px; height: 22px;
+            border-radius: 50%; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WELCOME / COVER PAGE -->
+    <div id="welcome-screen">
+        <div class="welcome-card-preview">
+            <div class="lace-overlay"></div>
+            <div class="welcome-logo serif-font">NOVYRA</div>
+            <div style="color: var(--gold-light); font-size: 0.75rem; margin-top: 10px; z-index: 2;">JOURNAL</div>
+        </div>
+        <button class="btn-gold" id="start-btn">Dəftəri Aç 🔑</button>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="app-container">
+        <!-- HEADER -->
+        <header>
+            <div class="logo serif-font">NOVYRA</div>
+            <div class="header-controls">
+                <!-- Google Translate Dropdown -->
+                <div id="google_translate_element"></div>
+                <button class="icon-btn" id="toc-btn" title="Mündəricat">📖</button>
+                <button class="icon-btn" id="pen-mode-btn" title="Qələm Rejimi">✏️</button>
+                <button class="icon-btn" id="clear-page-btn" title="Səhifəni Təmizlə">🗑️</button>
+            </div>
+        </header>
+
+        <!-- TOOLBAR -->
+        <div class="toolbar">
+            <span>Ümumi Səhifə: 200</span>
+            <button class="tool-btn" id="save-data-btn">Yadda Saxla 💾</button>
+        </div>
+
+        <!-- WORKSPACE -->
+        <div class="workspace" id="workspace">
+            <canvas id="draw-canvas"></canvas>
+            <div id="pages-wrapper"></div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <button class="nav-btn" id="prev-btn">← Əvvəlki</button>
+            <div class="page-indicator" id="page-indicator">Səhifə 1 / 200</div>
+            <button class="nav-btn" id="next-btn">Növbəti →</button>
+        </footer>
+    </div>
+
+    <!-- MÜNDƏRİCAT MODAL -->
+    <div class="modal" id="toc-modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3 class="serif-font" style="color:var(--gold);">Mündəricat</h3>
+                <button id="close-toc-btn" style="background:none; border:none; color:var(--text-muted); font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <div class="toc-list" id="toc-list"></div>
+        </div>
+    </div>
+
+    <!-- PEN TOOLBAR -->
+    <div id="pen-toolbar">
+        <div class="color-dot" style="background: #d4af37;" data-color="#d4af37"></div>
+        <div class="color-dot" style="background: #ffffff;" data-color="#ffffff"></div>
+        <div class="color-dot" style="background: #c5a059;" data-color="#c5a059"></div>
+        <button class="tool-btn" id="eraser-btn">Silgi</button>
+    </div>
+
+    <script>
+        const totalPagesCount = 200;
+        let currentPage = 0;
+
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const startBtn = document.getElementById('start-btn');
+        const pagesWrapper = document.getElementById('pages-wrapper');
+        const pageIndicator = document.getElementById('page-indicator');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const saveBtn = document.getElementById('save-data-btn');
+        const clearBtn = document.getElementById('clear-page-btn');
+        const penModeBtn = document.getElementById('pen-mode-btn');
+        const penToolbar = document.getElementById('pen-toolbar');
+        const canvas = document.getElementById('draw-canvas');
+        const ctx = canvas.getContext('2d');
+        const tocBtn = document.getElementById('toc-btn');
+        const tocModal = document.getElementById('toc-modal');
+        const closeTocBtn = document.getElementById('close-toc-btn');
+        const tocList = document.getElementById('toc-list');
+
+        // Articles data for stories every 10-15 pages
+        const articles = [
+            {
+                title: "The Story of Valentine's Day",
+                sub: "The Real Story Behind Valentine's Day",
+                text: "Long before Valentine's Day became a symbol of romance, it was tied to a much darker and more complex story. According to legend, Valentine was a priest in the third century who performed secret marriages against the emperor's decree. His story remains a testament to love chosen despite consequences."
+            },
+            {
+                title: "Overthinkaholic",
+                sub: "Curse or Superpower?",
+                text: "Overthinking is commonly viewed as a negative habit that prevents people from making decisions easily. However, studies show that individuals who analyze situations carefully often possess higher emotional intelligence and superior problem-solving skills when balanced with action."
+            },
+            {
+                title: "Coco Chanel",
+                sub: "Simplicity is the Keynote of All True Elegance",
+                text: "Coco Chanel revolutionized women's fashion by introducing practical, minimalist designs. She freed women from restrictive corsets and established iconic staples like the little black dress and Chanel No. 5, proving that true elegance lies in simplicity."
+            },
+            {
+                title: "Did You Know?",
+                sub: "The Mona Lisa's Secret",
+                text: "Mona Lisa's smile remains one of art history's greatest mysteries. Created using Da Vinci's sfumato technique, her expression seems to change between warmth and shadow. Microscopic codes found in her eyes continue to fascinate researchers worldwide."
+            },
+            {
+                title: "Adriana Lima",
+                sub: "Biography & Aesthetic",
+                text: "Known worldwide as one of the most iconic Victoria's Secret Angels, Adriana Lima embodies glamour, dedication, and effortless confidence. Beyond modeling, her spiritual devotion and humanitarian work highlight her inner strength."
+            }
+        ];
+
+        // 30 Bullet Journal Ideas
+        const bulletIdeas = [
+            "1. About Me", "2. My Hobbies", "3. My Dreams", "4. Childhood Memories",
+            "5. Favorite Foods", "6. Daily Routine", "7. Pet Peeves", "8. Achievements",
+            "9. Bucket List", "10. Favorite Books", "11. Morning Rituals", "12. Travel Wishlist",
+            "13. Relaxation Techniques", "14. Family Traditions", "15. Career Goals", "16. Music Playlist",
+            "17. Favorite Movies", "18. Self-Care Routine", "19. Fitness Goals", "20. Inspirational Quotes",
+            "21. Gratitude Journal", "22. Lessons Learned", "23. Favorite Places", "24. Creative Projects",
+            "25. Future Plans", "26. Random Facts", "27. Role Models", "28. Acts of Kindness",
+            "29. Guilty Pleasures", "30. Reflections"
+        ];
+
+        // BUILD ALL 200 PAGES
+        function buildPages() {
+            let html = '';
+            for (let i = 0; i < totalPagesCount; i++) {
+                html += `<div class="page-content ${i === 0 ? 'active' : ''}" data-page="${i}">`;
+
+                if (i === 0) {
+                    // PAGE 1: PERSONAL COVER PAGE (IMAGE 2)
+                    html += `
+                        <div class="journal-card" style="text-align:center;">
+                            <h2 class="serif-font" style="color:var(--gold); margin-bottom:15px;">WELCOME TO</h2>
+                            <div class="polaroid-box">
+                                <div class="polaroid-img-holder" onclick="triggerImageUpload(${i})">
+                                    <img id="user-cover-img" src="" style="display:none;" />
+                                    <span id="upload-placeholder" style="color:#666; font-size:0.8rem;">Şəkil Əlavə Et 📷</span>
+                                </div>
+                                <input type="file" id="cover-file-input" accept="image/*" style="display:none;" onchange="handleImageUpload(event)" />
+                            </div>
+                            <div style="margin-top:10px;">
+                                <input type="text" id="user-journal-name" class="user-name-input" placeholder="Adınızı Yazın..." value="My Journal" />
+                            </div>
+                        </div>
+                    `;
+                } else if (i === 1) {
+                    // PAGE 2: 30 BULLET JOURNAL IDEAS (IMAGE 3)
+                    html += `
+                        <div class="journal-card">
+                            <h2 class="journal-title serif-font">Bullet Journal Ideas</h2>
+                            <div class="journal-subtitle">30 Günlük Fikir və Mövzular</div>
+                            <div class="bullet-grid">
+                                ${bulletIdeas.map(item => `<div class="bullet-item"><span>${item}</span></div>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                } else if (i % 12 === 0 && i > 0) {
+                    // STORY / MAGAZINE ARTICLES EVERY 12 PAGES (IMAGES 4-8)
+                    let art = articles[(i / 12) % articles.length];
+                    html += `
+                        <div class="magazine-article">
+                            <h2>${art.title}</h2>
+                            <div class="sub">${art.sub}</div>
+                            <div class="article-body">${art.text}</div>
+                        </div>
+                    `;
+                } else {
+                    // STANDARD JOURNAL PLANNER PAGES
+                    html += `
+                        <div class="journal-card">
+                            <h2 class="journal-title serif-font">Daily Reflection</h2>
+                            <div class="journal-subtitle">Səhifə ${i + 1}</div>
+                            <div style="margin-bottom:15px;">
+                                <h4 style="color:var(--gold-light); margin-bottom:5px;">Günün Məqsədi:</h4>
+                                <textarea placeholder="Bu gün nəyə fokuslanırsan?"></textarea>
+                            </div>
+                            <div>
+                                <h4 style="color:var(--gold-light); margin-bottom:5px;">Günün Qeydləri:</h4>
+                                <textarea style="min-height:180px;" placeholder="Düşüncələrini bura yaz..."></textarea>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += `</div>`;
+            }
+            pagesWrapper.innerHTML = html;
+            renderTOC();
+        }
+
+        // IMAGE UPLOAD HANDLER
+        window.triggerImageUpload = function() {
+            document.getElementById('cover-file-input').click();
+        };
+
+        window.handleImageUpload = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('user-cover-img');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    document.getElementById('upload-placeholder').style.display = 'none';
+                    localStorage.setItem('novyra_cover_img', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // TOC RENDER
+        function renderTOC() {
+            tocList.innerHTML = `
+                <div class="toc-item" onclick="goToPage(0)"><span>1. Şəxsi Üz Qabığı</span><span>Səhifə 1</span></div>
+                <div class="toc-item" onclick="goToPage(1)"><span>2. 30 Bullet Journal Fikirləri</span><span>Səhifə 2</span></div>
+                <div class="toc-item" onclick="goToPage(12)"><span>3. Hekayə: Valentine's Day</span><span>Səhifə 12</span></div>
+                <div class="toc-item" onclick="goToPage(24)"><span>4. Hekayə: Overthinkaholic</span><span>Səhifə 24</span></div>
+                <div class="toc-item" onclick="goToPage(36)"><span>5. Hekayə: Coco Chanel</span><span>Səhifə 36</span></div>
+                <div class="toc-item" onclick="goToPage(48)"><span>6. Hekayə: Mona Lisa's Secret</span><span>Səhifə 48</span></div>
+            `;
+        }
+
+        window.goToPage = function(idx) {
+            showPage(idx);
+            tocModal.classList.remove('active');
+        };
+
+        tocBtn.addEventListener('click', () => tocModal.classList.add('active'));
+        closeTocBtn.addEventListener('click', () => tocModal.classList.remove('active'));
+
+        // NAVIGATION
+        function showPage(index) {
+            const pages = document.querySelectorAll('.page-content');
+            if (index < 0 || index >= totalPagesCount) return;
+            pages[currentPage].classList.remove('active');
+            currentPage = index;
+            pages[currentPage].classList.add('active');
+            pageIndicator.innerText = `Səhifə ${currentPage + 1} / ${totalPagesCount}`;
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage === totalPagesCount - 1;
+            document.getElementById('workspace').scrollTop = 0;
+        }
+
+        prevBtn.addEventListener('click', () => showPage(currentPage - 1));
+        nextBtn.addEventListener('click', () => showPage(currentPage + 1));
+
+        startBtn.addEventListener('click', () => {
+            welcomeScreen.classList.add('hidden');
+            resizeCanvas();
+            loadSavedData();
+        });
+
+        // CANVAS / STYLUS DRAWING
+        let isDrawing = false;
+        let penColor = '#d4af37';
+        let isEraser = false;
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        penModeBtn.addEventListener('click', () => {
+            canvas.classList.toggle('active');
+            penToolbar.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.color-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                penColor = dot.getAttribute('data-color');
+                isEraser = false;
+            });
+        });
+
+        document.getElementById('eraser-btn').addEventListener('click', () => isEraser = true);
+
+        canvas.addEventListener('pointerdown', (e) => {
+            if (!canvas.classList.contains('active')) return;
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            if (!isDrawing || !canvas.classList.contains('active')) return;
+            ctx.lineWidth = isEraser ? 20 : 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = isEraser ? '#121017' : penColor;
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+        });
+
+        canvas.addEventListener('pointerup', () => isDrawing = false);
+
+        // SAVE & LOAD
+        saveBtn.addEventListener('click', () => {
+            const data = {};
+            document.querySelectorAll('.page-content').forEach((p, idx) => {
+                const textareas = p.querySelectorAll('textarea');
+                data[idx] = Array.from(textareas).map(ta => ta.value);
+            });
+            localStorage.setItem('novyra_journal_notes', JSON.stringify(data));
+            const name = document.getElementById('user-journal-name')?.value;
+            if (name) localStorage.setItem('novyra_user_name', name);
+            alert('Bütün qeydləriniz və dəyişiklikləriniz yadda saxlanıldı! 🤍');
+        });
+
+        function loadSavedData() {
+            const savedNotes = localStorage.getItem('novyra_journal_notes');
+            if (savedNotes) {
+                const data = JSON.parse(savedNotes);
+                Object.keys(data).forEach(idx => {
+                    const page = document.querySelector(`.page-content[data-page="${idx}"]`);
+                    if (page) {
+                        const textareas = page.querySelectorAll('textarea');
+                        data[idx].forEach((val, tIdx) => {
+                            if (textareas[tIdx]) textareas[tIdx].value = val;
+                        });
+                    }
+                });
+            }
+            const savedImg = localStorage.getItem('novyra_cover_img');
+            if (savedImg) {
+                const img = document.getElementById('user-cover-img');
+                if (img) {
+                    img.src = savedImg;
+                    img.style.display = 'block';
+                    document.getElementById('upload-placeholder').style.display = 'none';
+                }
+            }
+            const savedName = localStorage.getItem('novyra_user_name');
+            if (savedName && document.getElementById('user-journal-name')) {
+                document.getElementById('user-journal-name').value = savedName;
+            }
+        }
+
+        clearBtn.addEventListener('click', () => {
+            if (confirm('Səhifə təmizlənsin?')) {
+                const activePage = document.querySelector('.page-content.active');
+                activePage.querySelectorAll('textarea').forEach(ta => ta.value = '');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        });
+
+        buildPages();
+    </script>
+</body>
+</html>
